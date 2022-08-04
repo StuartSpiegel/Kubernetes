@@ -72,3 +72,5 @@ kubectl apply -f https://download.elastic.co/downloads/eck/2.3.0/operator.yaml
 
 # Monitor the operators logs
 kubectl -n elastic-system logs -f statefulset.apps/elastic-operator
+
+# Kubeadm join with token below

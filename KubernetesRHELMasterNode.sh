@@ -11,6 +11,7 @@ ping -c 1 -q google.com >&/dev/null; echo $?
 yum update
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum install docker -y
+yum install containerd
 systemctl start docker
 systemctl enable docker
 systemctl status docker
@@ -55,13 +56,16 @@ sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 sudo sed -i '/swap/d' /etc/fstab
 sudo swapoff -a
 
+# Possible runtime fixes and dependency fixes here
+# rm /etc/containerd/conf.toml
+
 # Initialize the control plane
 kubeadm init 
 
 # If Root
 # export KUBECONFIG=/etc/kubernetes/admin.conf
 
-# FROM master node -- initialized above (normal user)
+# FROM master node -- initialized above (normal user) - su <not root>
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config

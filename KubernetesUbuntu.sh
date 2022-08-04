@@ -15,6 +15,7 @@
 # 192.168.1.174
 
 ###########################################################################################
+# Modify for your HOSTS
 echo "192.168.1.172 K8smaster.first.net k8smaster" >> /etc/hosts
 echo "192.168.1.173 K8worker1.first.net k8sworker1" >> /etc/hosts
 echo "192.168.1.174 K8sworker2.first.net k8sworker2" >> /etc/hosts
