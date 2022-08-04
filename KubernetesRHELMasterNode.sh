@@ -28,7 +28,11 @@ echo "192.168.1.10 master.domain.com master-node" >> /etc/hosts
 echo "192.168.1.20 node1. domain.com node1 worker-node" >> /etc/hosts
 
 # Configure the Firewall
+sudo firewall-cmd --zone=trusted --add-interface=cni0 --permanent
+sudo firewall-cmd --add-port=8090/tcp --permanent
+sudo firewall-cmd --add-port=8472/udp --permanent
 sudo firewall-cmd --permanent --add-port=6443/tcp
+sudo firewall-cmd --permanent --add-port=6443/udp
 sudo firewall-cmd --permanent --add-port=2379-2380/tcp
 sudo firewall-cmd --permanent --add-port=10250/tcp
 sudo firewall-cmd --permanent --add-port=10251/tcp
@@ -57,7 +61,7 @@ kubeadm init
 # If Root
 # export KUBECONFIG=/etc/kubernetes/admin.conf
 
-# FROM master node -- initialized above
+# FROM master node -- initialized above (normal user)
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
