@@ -51,6 +51,12 @@ sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 sudo sed -i '/swap/d' /etc/fstab
 sudo swapoff -a
 
+# Initialize the control plane
+kubeadm init 
+
+# If Root
+# export KUBECONFIG=/etc/kubernetes/admin.conf
+
 # FROM master node -- initialized above
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
